@@ -9,5 +9,5 @@ public class Resume {
     String fullName;
     String location;
     List<Contacts> contactsList;
-    SectionType resumeEnum;
+
 }

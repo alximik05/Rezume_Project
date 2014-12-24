@@ -7,19 +7,18 @@ import java.util.List;
 /**
  * Created by alximik on 24/12/14.
  */
-public class OrganizationSection {
+public class OrganizationSection extends Section {
 
-    private final String type;
+
     private final List<String> organizationName;
     private final List<Date> start;
     private final List<Date> finish;
-    private final List<String> value;
 
-    public OrganizationSection(String type, List<String> organizationName, List<Date> start, List<Date> finish, List<String> value) {
-        this.type = type;
+
+    public OrganizationSection(String type, List<String> value, List<String> organizationName, List<Date> start, List<Date> finish) {
+        super(type, value);
         this.organizationName = organizationName;
         this.start = start;
         this.finish = finish;
-        this.value = value;
     }
 }

@@ -9,13 +9,7 @@ public class Resume_Without_Enum {
     String fullName;
     String location;
     List<Contacts> contactsList;
-    String objective;
-    Section achievment;
-    Section qualification;
-    OrganizationSection experience;
-    OrganizationSection education;
-
-
+    List<Section> sectionList;
 }
 
 

@@ -5,22 +5,22 @@ import java.util.List;
 /**
  * Created by alximik on 24/12/14.
  */
-public enum RezumeEnum {
+public enum SectionType {
 
     OBJECTIVE {
         String objective;
     },
     ACHIEVEMENT{
-        List<Section> achievmentList;
+       Section achievment;
     },
     QUALIFICATIONS{
-        List<Section> qualificationList;
+        Section qualification;
     },
     EXPERIENCE{
-        List<DoubleSection> experienceList;
+        DoubleSection experience;
     },
     EDUCATION{
-        List<DoubleSection> educationList;
+        DoubleSection education;
     }
 
 }

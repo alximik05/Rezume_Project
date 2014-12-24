@@ -12,8 +12,8 @@ public class Resume_Without_Enum {
     String objective;
     Section achievment;
     Section qualification;
-    DoubleSection experience;
-    DoubleSection education;
+    OrganizationSection experience;
+    OrganizationSection education;
 
 
 }

@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * Created by alximik on 24/12/14.
@@ -10,12 +10,16 @@ import java.util.Map;
 public class OrganizationSection {
 
     private final String type;
-    private final String organizationName;
-    private final Map<Date, String> timeAndValue;
+    private final List<String> organizationName;
+    private final List<Date> start;
+    private final List<Date> finish;
+    private final List<String> value;
 
-    public OrganizationSection(String type, String organizationName, Map<Date, String> timeAndValue) {
+    public OrganizationSection(String type, List<String> organizationName, List<Date> start, List<Date> finish, List<String> value) {
         this.type = type;
         this.organizationName = organizationName;
-        this.timeAndValue = timeAndValue;
+        this.start = start;
+        this.finish = finish;
+        this.value = value;
     }
 }

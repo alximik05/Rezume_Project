@@ -7,11 +7,9 @@ import java.util.List;
  */
 public class Organization {
 
-    private final Link organization;
-    private final List<Period> periods;
+    private  Link organization;
+    private  List<OrganizationPeriod> periods;
 
-    public Organization(Link organization, List<Period> periods) {
-        this.organization = organization;
-        this.periods = periods;
-    }
+
 }
+

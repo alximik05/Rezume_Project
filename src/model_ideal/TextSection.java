@@ -1,15 +1,9 @@
 package model_ideal;
 
-import java.util.List;
-
 /**
- * Created by alximik on 26/12/14.
+ * Created by alximik on 04/01/15.
  */
 public class TextSection extends Section {
-   private final List<String> content;
-
-    public TextSection(String type, List<String> content) {
-        super(type);
-        this.content = content;
-    }
+    private String title;
+    private String comment;
 }

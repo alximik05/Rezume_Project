@@ -9,5 +9,7 @@ public class MultyTextSection extends Section {
    private  List<String> content;
 
 
-
+    public MultyTextSection(SectionType type) {
+        super(type);
+    }
 }

@@ -9,4 +9,8 @@ public class OrganiztionSection extends Section {
 
     private List<Organization> values;
 
+    public OrganiztionSection(SectionType type, List<Organization> values) {
+        super(type);
+        this.values = values;
+    }
 }

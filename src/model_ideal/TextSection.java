@@ -6,4 +6,8 @@ package model_ideal;
 public class TextSection extends Section {
     private String title;
     private String comment;
+
+    public TextSection(SectionType type) {
+        super(type);
+    }
 }

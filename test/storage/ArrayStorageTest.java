@@ -14,6 +14,11 @@ public class ArrayStorageTest {
 
     private ArrayStorage storage = new ArrayStorage();
 
+    private static boolean isEquals(Resume resume1, Resume resume2) {
+        return  (resume1.equals(resume2) && resume1.getFullName().equals(resume2.getFullName()));
+
+    }
+
     @BeforeClass
     public static void beforeClass() {
         R1 = new Resume("Имя1", "локация1");
@@ -50,18 +55,9 @@ public class ArrayStorageTest {
     public void testSave() throws Exception {
         Assert.assertEquals(3, storage.size());
 
-        Assert.assertEquals("Имя1", storage.load(R1.getUuid()).getFullName());
-        Assert.assertEquals("локация1", storage.load(R1.getUuid()).getLocation());
-
-        Assert.assertEquals("Имя2", storage.load(R2.getUuid()).getFullName());
-        Assert.assertEquals("локация2", storage.load(R2.getUuid()).getLocation());
-
-        Assert.assertEquals("Имя3", storage.load(R3.getUuid()).getFullName());
-        Assert.assertEquals(null, storage.load(R3.getUuid()).getLocation());
-
-        Assert.assertEquals("111", storage.load(R1.getUuid()).getContacts().get(0).getContent());
-        Assert.assertEquals("aaa@mail.ru", storage.load(R1.getUuid()).getContacts().get(1).getContent());
-
+        Assert.assertEquals(true,isEquals(storage.load(R1.getUuid()),R1));
+        Assert.assertEquals(true,isEquals(storage.load(R2.getUuid()),R2));
+        Assert.assertEquals(true,isEquals(storage.load(R3.getUuid()),R3));
 
     }
 
@@ -71,20 +67,24 @@ public class ArrayStorageTest {
         Resume testUpdateRezume = new Resume(R1.getUuid(),
                 "Обновленное имя", "Обновленная локация");
         storage.update(testUpdateRezume);
-        Assert.assertEquals("Обновленное имя",storage.load(R1.getUuid()).getFullName());
+        Assert.assertEquals(true, isEquals(testUpdateRezume, storage.load(R1.getUuid())));
     }
 
     @Test
     public void testLoad() throws Exception {
 
         Resume r = storage.load(R1.getUuid());
-        Assert.assertEquals("Имя1", r.getFullName());
-
+        Assert.assertEquals(true,isEquals(r,R1));
         Resume r2 = storage.load(R2.getUuid());
-        Assert.assertEquals("Имя2", r2.getFullName());
-
+        Assert.assertEquals(true,isEquals(r2,R2));
         Resume r3 = storage.load(R3.getUuid());
-        Assert.assertEquals(null, r3.getLocation());
+        Assert.assertEquals(true,isEquals(r3,R3));
+
+//        Resume r2 = storage.load(R2.getUuid());
+//        Assert.assertEquals("Имя2", r2.getFullName());
+//
+//        Resume r3 = storage.load(R3.getUuid());
+//        Assert.assertEquals(null, r3.getLocation());
     }
 
     @Test

@@ -6,9 +6,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 
 public class ArrayStorageTest {
@@ -52,6 +49,7 @@ public class ArrayStorageTest {
     @Test
     public void testSave() throws Exception {
         Assert.assertEquals(3, storage.size());
+        Assert.assertEquals("Имя2", storage.load(R2.getUuid()).getFullName());
 
     }
 

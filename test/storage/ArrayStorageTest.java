@@ -49,7 +49,19 @@ public class ArrayStorageTest {
     @Test
     public void testSave() throws Exception {
         Assert.assertEquals(3, storage.size());
+
+        Assert.assertEquals("Имя1", storage.load(R1.getUuid()).getFullName());
+        Assert.assertEquals("локация1", storage.load(R1.getUuid()).getLocation());
+
         Assert.assertEquals("Имя2", storage.load(R2.getUuid()).getFullName());
+        Assert.assertEquals("локация2", storage.load(R2.getUuid()).getLocation());
+
+        Assert.assertEquals("Имя3", storage.load(R3.getUuid()).getFullName());
+        Assert.assertEquals(null, storage.load(R3.getUuid()).getLocation());
+
+        Assert.assertEquals("111", storage.load(R1.getUuid()).getContacts().get(0).getContent());
+        Assert.assertEquals("aaa@mail.ru", storage.load(R1.getUuid()).getContacts().get(1).getContent());
+
 
     }
 
@@ -67,13 +79,24 @@ public class ArrayStorageTest {
 
         Resume r = storage.load(R1.getUuid());
         Assert.assertEquals("Имя1", r.getFullName());
+
+        Resume r2 = storage.load(R2.getUuid());
+        Assert.assertEquals("Имя2", r2.getFullName());
+
+        Resume r3 = storage.load(R3.getUuid());
+        Assert.assertEquals(null, r3.getLocation());
     }
 
     @Test
     public void testDelete() throws Exception {
-        storage.delete(R1.getUuid());
+        storage.delete(R2.getUuid());
         Assert.assertEquals(2, storage.size());
-    //    Assert.assertEquals(null, storage.load(R1.getUuid()));
+
+        storage.delete(R1.getUuid());
+        Assert.assertEquals(1, storage.size());
+
+
+        //    Assert.assertEquals(null, storage.load(R1.getUuid()));
     }
 
     @Test

@@ -5,6 +5,11 @@ package model_ideal;
  */
 public class Contact {
     private final  ContactType type;
+
+    public String getContent() {
+        return content;
+    }
+
     private final  String content;
 
     public Contact(ContactType type, String content) {

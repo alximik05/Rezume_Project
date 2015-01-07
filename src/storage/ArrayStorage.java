@@ -38,18 +38,15 @@ public class ArrayStorage implements IStorage {
     @Override
     public void save(Resume resume) {
         int idx = -1;
-        boolean flag = true;
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null) {
                 if (array[i].equals(resume)) {
-                    System.out.println("Резюме уже созднано");
-                    flag = false;
-                    break;
+                    throw new IllegalArgumentException("Резюме уже созднано");
                 }
             }
             else if (idx == -1) idx = i;
         }
-        if (idx != -1 && flag) {
+        if (idx != -1) {
             array[idx] = resume;
         }
     }
@@ -64,8 +61,8 @@ public class ArrayStorage implements IStorage {
                 break;
             }
         }
-        if (idx >= LIMIT) {
-            System.out.println("Резюме не найдено");
+        if (idx > LIMIT) {
+            throw new IllegalArgumentException("Резюме не найдно");
         }
     }
 
@@ -76,9 +73,7 @@ public class ArrayStorage implements IStorage {
                 return array[i];
             }
         }
-
-        System.out.println("Резюме с данным UUID не найдно");
-        return null;
+        throw new IllegalArgumentException("Резюме с данным UUID не найдно");
     }
 
     @Override
@@ -91,8 +86,8 @@ public class ArrayStorage implements IStorage {
                 break;
             }
         }
-        if (idx >= LIMIT) {
-            System.out.println("Резюме с данным UUID не найдно");
+        if (idx > LIMIT) {
+            throw new IllegalArgumentException("Резюме с данным UUID не найдно");
         }
     }
 

@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.List;
+
 
 public class ArrayStorageTest {
 
@@ -14,7 +16,7 @@ public class ArrayStorageTest {
     private ArrayStorage storage = new ArrayStorage();
 
     @BeforeClass
-    public void beforeClass() {
+    public static void beforeClass() {
         R1 = new Resume("Имя1", "локация1");
         R1.addContact(new Contact(ContactType.MOBILE, "111"));
         R1.addContact(new Contact(ContactType.MAIL, "aaa@mail.ru"));
@@ -39,9 +41,10 @@ public class ArrayStorageTest {
     public void testClear() throws Exception {
 
         storage.clear();
-        Assert.assertEquals(null, storage.load(R1.getUuid()));
-        Assert.assertEquals(null, storage.load(R2.getUuid()));
-        Assert.assertEquals(null, storage.load(R3.getUuid()));
+        Assert.assertEquals(0, storage.size());
+//        Assert.assertEquals(null, storage.load(R1.getUuid()));
+//        Assert.assertEquals(null, storage.load(R2.getUuid()));
+//        Assert.assertEquals(null, storage.load(R3.getUuid()));
     }
 
     @Test
@@ -67,11 +70,17 @@ public class ArrayStorageTest {
     public void testDelete() throws Exception {
         storage.delete(R1.getUuid());
         Assert.assertEquals(2, storage.size());
-        Assert.assertEquals(null, storage.load(R1.getUuid()));
+    //    Assert.assertEquals(null, storage.load(R1.getUuid()));
     }
 
     @Test
     public void testGetAllSorted() throws Exception {
+
+        storage.clear();
+        storage.save(R2);
+        storage.save(R3);
+        storage.save(R1);
+     //   List list = (List) storage.getAllSorted();
 
     }
 

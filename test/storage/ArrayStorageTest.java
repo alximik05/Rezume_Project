@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -56,7 +58,10 @@ public class ArrayStorageTest {
     @Test
     public void testUpdate() throws Exception {
 
-
+        Resume testUpdateRezume = new Resume(R1.getUuid(),
+                "Обновленное имя", "Обновленная локация");
+        storage.update(testUpdateRezume);
+        Assert.assertEquals("Обновленное имя",storage.load(R1.getUuid()).getFullName());
     }
 
     @Test
@@ -76,11 +81,6 @@ public class ArrayStorageTest {
     @Test
     public void testGetAllSorted() throws Exception {
 
-        storage.clear();
-        storage.save(R2);
-        storage.save(R3);
-        storage.save(R1);
-     //   List list = (List) storage.getAllSorted();
 
     }
 

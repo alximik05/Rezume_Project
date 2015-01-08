@@ -89,11 +89,15 @@ public class ArrayStorageTest {
 
     @Test
     public void testDelete() throws Exception {
+
+
+        Assert.assertEquals(3, storage.size());
+
         storage.delete(R2.getUuid());
         Assert.assertEquals(2, storage.size());
 
-        storage.delete(R1.getUuid());
-        Assert.assertEquals(1, storage.size());
+//        storage.delete(R3.getUuid());
+//        Assert.assertEquals(0, storage.size());
 
 
         //    Assert.assertEquals(null, storage.load(R1.getUuid()));

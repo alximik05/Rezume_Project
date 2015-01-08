@@ -35,20 +35,31 @@ public class ArrayStorage implements IStorage {
 //        }
 //        array[idx] = resume;
 //    }
+
+    //    public void save(Resume resume) {
+//        int idx = -1;
+//        for (int i = 0; i < array.length; i++) {
+//            if (array[i] != null) {
+//                if (array[i].equals(resume)) {
+//                    throw new IllegalArgumentException("Резюме уже созднано");
+//                }
+//            }
+//            else if (idx == -1) idx = i;
+//        }
+//        if (idx != -1) {
+//            array[idx] = resume;
+//        }
+//    }
     @Override
     public void save(Resume resume) {
-        int idx = -1;
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null) {
                 if (array[i].equals(resume)) {
                     throw new IllegalArgumentException("Резюме уже созднано");
                 }
             }
-            else if (idx == -1) idx = i;
         }
-        if (idx != -1) {
-            array[idx] = resume;
-        }
+        array[size()] = resume;
     }
 
     @Override
@@ -76,13 +87,29 @@ public class ArrayStorage implements IStorage {
         throw new IllegalArgumentException("Резюме с данным UUID не найдно");
     }
 
+
+    //    public void delete(String uuid) {
+//        int idx = 1;
+//        for (int i = 0; i < array.length; i++) {
+//            idx++;
+//            if (uuid.equals(array[i].getUuid())) {
+//                array[i] = null;
+//                break;
+//            }
+//        }
+//        if (idx > LIMIT) {
+//            throw new IllegalArgumentException("Резюме с данным UUID не найдно");
+//        }
+//    }
     @Override
     public void delete(String uuid) {
-        int idx = 1;
+        int idx = 0;
         for (int i = 0; i < array.length; i++) {
             idx++;
             if (uuid.equals(array[i].getUuid())) {
-                array[i] = null;
+                for (int j = i; j < size(); j++) {
+                    array[j] = array[j + 1];
+                }
                 break;
             }
         }

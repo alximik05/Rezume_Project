@@ -2,6 +2,7 @@ package model_ideal;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -29,16 +30,17 @@ public class Resume implements Comparable<Resume> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Resume resume = (Resume) o;
-
-        if (!uuid.equals(resume.uuid)) return false;
-
-        return true;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Resume other = (Resume) obj;
+        return Objects.equals(this.uuid, other.uuid) && Objects.equals(this.fullName, other.fullName) && Objects.equals(this.location, other.location) && Objects.equals(this.homePage, other.homePage) && Objects.equals(this.contacts, other.contacts) && Objects.equals(this.sections, other.sections);
     }
+
 
 
     public void addContact(Contact contact) {

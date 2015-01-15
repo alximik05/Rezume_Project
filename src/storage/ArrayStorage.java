@@ -78,16 +78,14 @@ public class ArrayStorage extends AbstractStorage {
     }
 
     public int getIndex(String uuid) {
-        for (int i = 0; i < LIMIT; i++) {
-            if (array[i] != null) {
-                if (array[i].getUuid().equals(uuid)) {
-                    return i;
-                }
+        for (int i = 0; i < size(); i++) {
+            if (array[i].getUuid().equals(uuid)) {
+                return i;
             }
         }
         return -1;
-
     }
+
 }
 
 

@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by alximik on 13/01/15.
  */
-public class MapStorrage extends AbstractStorage {
+public class MapStorage extends AbstractStorage {
 
     private Map<String, Resume> mapStorage = new HashMap<String, Resume>();
 

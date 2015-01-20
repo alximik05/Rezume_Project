@@ -10,11 +10,72 @@ import java.util.logging.Logger;
 /**
  * Created by alximik on 04/01/15.
  */
-public class ArrayStorage extends AbstractStorage {
+public class ArrayStorage extends AbstractStorage<Integer> {
     private static final int LIMIT = 100;
     private Resume[] array = new Resume[LIMIT];
 
 
+    @Override
+    protected void doClear() {
+        Arrays.fill(array, null);
+    }
+
+    @Override
+    protected Integer getContext(String uuid) {
+        for (int i = 0; i < size(); i++) {
+            if (array[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    protected boolean exist(Integer ctx) {
+        return ctx != -1;
+    }
+
+    @Override
+    protected void doSave( Resume r) {
+        array[size()] = r;
+    }
+
+    @Override
+    protected void doUpdate(Integer ctx, Resume r) {
+        array[ctx] = r;
+    }
+
+    @Override
+    protected Resume doLoad(Integer ctx, String uuid) {
+        return array[ctx];
+    }
+
+    @Override
+    protected void doDelete(Integer ctx, String uuid) {
+        int numMoved = size() - ctx - 1;
+        if (numMoved > 0)
+            System.arraycopy(array, ctx + 1, array, ctx,
+                    numMoved);
+        array[size() - 1] = null;
+    }
+
+    @Override
+    protected List<Resume> doGetAll() {
+        return Arrays.asList(array);
+    }
+
+    @Override
+    public int size() {
+        int idx = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != null) {
+                idx++;
+            }
+        }
+        return idx;
+    }
+}
+    /*
     @Override
     protected void doClear() {
         Arrays.fill(array, null);
@@ -49,12 +110,6 @@ public class ArrayStorage extends AbstractStorage {
             System.arraycopy(array, idx + 1, array, idx, numMoved);
     }
 
-    @Override
-    protected Collection<Resume> doGetAllSorted() {
-        List<Resume> list = Arrays.asList(array);
-        Collections.sort(list);
-        return list;
-    }
 
     @Override
     protected int doSize() {

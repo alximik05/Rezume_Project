@@ -1,21 +1,21 @@
 package model_ideal;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by alximik on 26/12/14.
  */
-public class Resume implements Comparable<Resume> {
+public class Resume {
     private String uuid;
+
 
     private String fullName;
     private String location;
     private String homePage;
 
-    private List<Contact> contacts = new LinkedList<Contact>();
+    //  private List<Contact> contacts = new LinkedList<Contact>();
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+
     private List<Section> sections = new LinkedList<Section>();
 
 
@@ -41,10 +41,13 @@ public class Resume implements Comparable<Resume> {
         return Objects.equals(this.uuid, other.uuid) && Objects.equals(this.fullName, other.fullName) && Objects.equals(this.location, other.location) && Objects.equals(this.homePage, other.homePage) && Objects.equals(this.contacts, other.contacts) && Objects.equals(this.sections, other.sections);
     }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
 
-    public void addContact(Contact contact) {
-        contacts.add(contact);
+    public void addContact(ContactType contactType, String value ) {
+        contacts.put(contactType, value);
     }
 
     public void addSection(Section section) {
@@ -68,8 +71,8 @@ public class Resume implements Comparable<Resume> {
         return homePage;
     }
 
-    public List<Contact> getContacts() {
-        return contacts;
+    public String getContacts(ContactType contactType) {
+        return contacts.get(contactType);
     }
 
     public List<Section> getSections() {
@@ -81,8 +84,4 @@ public class Resume implements Comparable<Resume> {
         return uuid.hashCode();
     }
 
-    @Override
-    public int compareTo(Resume o) {
-        return fullName.compareTo(o.getFullName());
-    }
 }

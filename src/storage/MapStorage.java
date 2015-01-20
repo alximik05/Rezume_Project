@@ -2,17 +2,62 @@ package storage;
 
 import model_ideal.Resume;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by alximik on 13/01/15.
  */
-public class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage<String> {
 
     private Map<String, Resume> mapStorage = new HashMap<String, Resume>();
 
+
+    @Override
+    protected void doClear() {
+        mapStorage.clear();
+    }
+
+    @Override
+    protected String getContext(String uuid) {
+        return uuid;
+    }
+
+    @Override
+    protected boolean exist(String ctx) {
+        return mapStorage.containsKey(ctx);
+    }
+
+    @Override
+    protected void doSave(Resume r) {
+        mapStorage.put(r.getUuid(), r);
+    }
+
+    @Override
+    protected void doUpdate(String ctx, Resume r) {
+        mapStorage.put(ctx, r);
+    }
+
+    @Override
+    protected Resume doLoad(String ctx, String uuid) {
+        return mapStorage.get(ctx);
+    }
+
+    @Override
+    protected void doDelete(String ctx, String uuid) {
+        mapStorage.remove(ctx);
+    }
+
+    @Override
+    protected List<Resume> doGetAll() {
+        return new ArrayList<>(mapStorage.values());
+    }
+
+    @Override
+    public int size() {
+        return mapStorage.size();
+    }
+}
+    /*
     @Override
     protected void doClear() {
         mapStorage.clear();
@@ -53,3 +98,4 @@ public class MapStorage extends AbstractStorage {
         return mapStorage.containsKey(uuid);
     }
 }
+*/

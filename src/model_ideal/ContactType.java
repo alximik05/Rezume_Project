@@ -20,4 +20,6 @@ public enum ContactType {
     ContactType(String title) {
         this.title = title;
     }
+
+    public static ContactType[] VALUES = ContactType.values();
 }

@@ -36,7 +36,7 @@ public class ArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected void doSave( Resume r) {
+    protected void doSave(Integer ctx,  Resume r) {
         array[size()] = r;
     }
 
@@ -46,12 +46,12 @@ public class ArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected Resume doLoad(Integer ctx, String uuid) {
+    protected Resume doLoad(Integer ctx) {
         return array[ctx];
     }
 
     @Override
-    protected void doDelete(Integer ctx, String uuid) {
+    protected void doDelete(Integer ctx) {
         int numMoved = size() - ctx - 1;
         if (numMoved > 0)
             System.arraycopy(array, ctx + 1, array, ctx,

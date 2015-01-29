@@ -1,23 +1,34 @@
 package model_ideal;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Created by alximik on 26/12/14.
  */
-public class Resume {
+public class Resume implements Serializable{
+
     private String uuid;
-
-
     private String fullName;
+
+
     private String location;
     private String homePage;
-
-    //  private List<Contact> contacts = new LinkedList<Contact>();
     private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private Map<SectionType, String> sections = new EnumMap<>(SectionType.class);
 
-    private List<Section> sections = new LinkedList<Section>();
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
+    }
+
+    public static final Resume EMPTY;
+    static {
+        EMPTY = new Resume();
+    }
 
     public Resume(String uuid, String fullName, String location) {
         this.uuid = uuid;
@@ -25,14 +36,20 @@ public class Resume {
         this.location = location;
     }
 
+
+    public Resume() {
+    }
+
     public Resume(String fullName, String location) {
         this(UUID.randomUUID().toString(), fullName, location);
     }
+
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
+
         }
         if (obj == null || getClass() != obj.getClass()) {
             return false;
@@ -50,8 +67,8 @@ public class Resume {
         contacts.put(contactType, value);
     }
 
-    public void addSection(Section section) {
-        sections.add(section);
+    public void addSection(SectionType section, String value) {
+        sections.put(section, value);
     }
 
 
@@ -71,12 +88,16 @@ public class Resume {
         return homePage;
     }
 
-    public String getContacts(ContactType contactType) {
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public String getContact(ContactType contactType) {
         return contacts.get(contactType);
     }
 
-    public List<Section> getSections() {
-        return sections;
+    public String getSections(SectionType sectionType) {
+        return  sections.get(sectionType);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class MapStorage extends AbstractStorage<String> {
 
-    private Map<String, Resume> mapStorage = new HashMap<String, Resume>();
+    private Map<String, Resume> mapStorage = new HashMap<>();
 
 
     @Override
@@ -28,8 +28,8 @@ public class MapStorage extends AbstractStorage<String> {
     }
 
     @Override
-    protected void doSave(Resume r) {
-        mapStorage.put(r.getUuid(), r);
+    protected void doSave(String uuid, Resume r) {
+        mapStorage.put(uuid, r);
     }
 
     @Override
@@ -38,12 +38,12 @@ public class MapStorage extends AbstractStorage<String> {
     }
 
     @Override
-    protected Resume doLoad(String ctx, String uuid) {
+    protected Resume doLoad(String ctx) {
         return mapStorage.get(ctx);
     }
 
     @Override
-    protected void doDelete(String ctx, String uuid) {
+    protected void doDelete(String ctx) {
         mapStorage.remove(ctx);
     }
 
@@ -57,45 +57,3 @@ public class MapStorage extends AbstractStorage<String> {
         return mapStorage.size();
     }
 }
-    /*
-    @Override
-    protected void doClear() {
-        mapStorage.clear();
-    }
-
-    @Override
-    protected void doSave(Resume resume) {
-        mapStorage.put(resume.getUuid(), resume);
-    }
-
-    @Override
-    protected void doUpdate(Resume resume) {
-        doSave(resume);
-    }
-
-    @Override
-    protected Resume doLoad(String uuid) {
-        return mapStorage.get(uuid);
-    }
-
-    @Override
-    protected void doDelete(String uuid) {
-        mapStorage.remove(uuid);
-    }
-
-    @Override
-    protected Collection<Resume> doGetAllSorted() {
-        return null;
-    }
-
-    @Override
-    protected int doSize() {
-        return mapStorage.size();
-    }
-
-    @Override
-    public boolean isContain(String uuid) {
-        return mapStorage.containsKey(uuid);
-    }
-}
-*/

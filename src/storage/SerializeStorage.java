@@ -14,13 +14,18 @@ public class SerializeStorage extends FileStorage {
 
     @Override
     protected void doWrite(Resume r, OutputStream out) throws IOException {
-
+        ObjectOutputStream outputStream = new ObjectOutputStream(out);
+        outputStream.writeObject(r);
     }
 
-
     @Override
-    protected Resume doRead(File file, DataInputStream reader) throws IOException {
-        return null;
+    protected Resume doRead(File file, InputStream reader) throws IOException {
+        ObjectInputStream inputStream = new ObjectInputStream(reader);
+        try {
+            return (Resume) inputStream.readObject();
+        }catch (ClassNotFoundException e) {
+            throw new WebAppException("Error read resume ", e);
+        }
     }
 
 //    @Override

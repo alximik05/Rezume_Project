@@ -17,22 +17,22 @@ public class DataStreamFileStorage extends FileStorage {
     @Override
     protected void doWrite(Resume r, OutputStream outputStream ) throws IOException {
         {
-            outputStream = new DataOutputStream();
+            DataOutputStream out = new DataOutputStream(outputStream);
             if (r.getFullName() != null) {
-                outputStream.writeUTF(r.getFullName());
+                out.writeUTF(r.getFullName());
             }
             if (r.getLocation() != null) {
-                outputStream.writeUTF(r.getLocation());
+                out.writeUTF(r.getLocation());
             }
             if (r.getHomePage() != null) {
-                outputStream.writeUTF(r.getHomePage());
+                out.writeUTF(r.getHomePage());
             }
             if (!r.getContacts().isEmpty()) {
                 Map<ContactType, String> contactsSize = r.getContacts();
-                outputStream.writeInt(contactsSize.size());
+                out.writeInt(contactsSize.size());
                 for (Map.Entry<ContactType, String> entry : contactsSize.entrySet()) {
-                    outputStream.writeInt(entry.getKey().ordinal());
-                    outputStream.writeUTF(entry.getValue());
+                    out.writeInt(entry.getKey().ordinal());
+                    out.writeUTF(entry.getValue());
                 }
             }
         }
@@ -40,19 +40,20 @@ public class DataStreamFileStorage extends FileStorage {
     }
 
     @Override
-    protected Resume doRead(File file, DataInputStream inputStream) throws IOException {
+    protected Resume doRead(File file, InputStream inputStream) throws IOException {
 
-            Resume resume;
-            String uuid = file.getName();
-            String fullName = inputStream.readUTF();
-            String location = inputStream.readUTF();
-            resume = new Resume(uuid, fullName, location);
-            resume.setHomePage(inputStream.readUTF());
-            int contactSize = inputStream.readInt();
-            for (int i = 0; i < contactSize; i++) {
-                resume.addContact(ContactType.VALUES[inputStream.readInt()], inputStream.readUTF());
-            }
-            return resume;
+        DataInputStream input = new DataInputStream(inputStream);
+        Resume resume;
+        String uuid = file.getName();
+        String fullName = input.readUTF();
+        String location = input.readUTF();
+        resume = new Resume(uuid, fullName, location);
+        resume.setHomePage(input.readUTF());
+        int contactSize = input.readInt();
+        for (int i = 0; i < contactSize; i++) {
+            resume.addContact(ContactType.VALUES[input.readInt()], input.readUTF());
+        }
+        return resume;
     }
 
 }

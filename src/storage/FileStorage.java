@@ -77,7 +77,7 @@ public abstract class FileStorage extends AbstractStorage<File> {
         }
     }
 
-    protected abstract Resume doRead(File file, DataInputStream reader) throws IOException;
+    protected abstract Resume doRead(File file, InputStream reader) throws IOException;
 
     @Override
     protected void doUpdate(File ctx, Resume r) {

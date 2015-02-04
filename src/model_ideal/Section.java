@@ -1,12 +1,13 @@
 package model_ideal;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import java.io.Serializable;
+
 /**
  * Created by alximik on 26/12/14.
  */
-public class Section {
-    protected SectionType type;
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Section implements Serializable {
 
-    public Section(SectionType type) {
-        this.type = type;
-    }
 }

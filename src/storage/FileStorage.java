@@ -3,10 +3,7 @@ package storage;
 import model_ideal.Resume;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by alximik on 27/01/15.
@@ -54,30 +51,26 @@ public abstract class FileStorage extends AbstractStorage<File> {
     }
 
      protected void write(File ctx, Resume r) {
-         try (DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(ctx)))
+         try
          {
-             doWrite(r, outputStream);
+             doWrite(new FileOutputStream(ctx),r);
          }
          catch (IOException e) {
              throw new WebAppException("Couldn't write file", r, e);
          }
      }
 
-    protected abstract void doWrite(Resume r, OutputStream out) throws IOException;
-
-
     protected Resume read(File file)
     {
-
-        try (DataInputStream inputStream = new DataInputStream(new FileInputStream(file))) {
-            return doRead(file,inputStream);
+        try {
+            return doRead(new FileInputStream(file));
         }
         catch (IOException e) {
             throw new WebAppException("Couldn't read file ", e);
         }
     }
-
-    protected abstract Resume doRead(File file, InputStream reader) throws IOException;
+    protected abstract void doWrite(OutputStream out, Resume r) throws IOException;
+    protected abstract Resume doRead(InputStream reader) throws IOException;
 
     @Override
     protected void doUpdate(File ctx, Resume r) {
@@ -98,11 +91,11 @@ public abstract class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doGetAll() {
-        List<Resume> list = new ArrayList<>();
         File[] files = dir.listFiles();
         if (files == null) {
-            throw new IllegalArgumentException("Can't get list of files");
+            return Collections.emptyList();
         }
+        List<Resume> list = new ArrayList<>(files.length);
         for (File file : files) {
             list.add(read(file));
         }

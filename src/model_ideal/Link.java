@@ -1,8 +1,12 @@
 package model_ideal;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  * Created by alximik on 26/12/14.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Link {
     public static Link EMPTY = new Link();
 

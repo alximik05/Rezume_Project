@@ -1,9 +1,12 @@
 package storage;
 import model_ideal.ContactType;
 import model_ideal.Resume;
+import model_ideal.SectionType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by alximik on 13/01/15.
@@ -24,6 +27,11 @@ public abstract class AbstractStorageTest {
         R2.addContact(ContactType.SKYPE, "lalala");
 
         R3 = new Resume("Имя3", null);
+
+        R1.addObjective("Objective - позиция");
+        R1.addMultiTextSection(SectionType.ACHIEVEMENT, "Достижение1", "Достижение2");
+        R1.addMultiTextSection(SectionType.QUALIFICATIONS, "Квалификация1", "Квалификация2");
+
     }
 
     @Before
@@ -38,17 +46,13 @@ public abstract class AbstractStorageTest {
     public void testClear() throws Exception {
 
         storage.clear();
-        Assert.assertEquals(0, storage.size());
+        assertEquals(0, storage.size());
 
     }
 
     @Test
     public void testSave()  {
-        Assert.assertEquals(3, storage.size());
-
-        Assert.assertEquals(true,(storage.load(R1.getUuid()).equals(R1)));
-        Assert.assertEquals(true,(storage.load(R2.getUuid()).equals(R2)));
-        Assert.assertEquals(true,(storage.load(R3.getUuid()).equals(R3)));
+        assertEquals(3, storage.size());
 
     }
 
@@ -63,7 +67,7 @@ public abstract class AbstractStorageTest {
         // НЕ будет работать тк equals проверяет почти по всем полям
         R1.setFullName("Новое имя");
         storage.update(R1);
-        Assert.assertEquals("Новое имя", (storage.load(R1.getUuid()).getFullName()));
+        assertEquals("Новое имя", (storage.load(R1.getUuid()).getFullName()));
     }
 
     @Test(expected = WebAppException.class)
@@ -74,12 +78,9 @@ public abstract class AbstractStorageTest {
     @Test
     public void testLoad() {
 
-        Resume r = storage.load(R1.getUuid());
-        Assert.assertEquals(true,(r.equals(R1)));
-        Resume r2 = storage.load(R2.getUuid());
-        Assert.assertEquals(true,(r2.equals(R2)));
-        Resume r3 = storage.load(R3.getUuid());
-        Assert.assertEquals(true,(r3.equals(R3)));
+        assertEquals(R1, storage.load(R1.getUuid()));
+        assertEquals(R2, storage.load(R2.getUuid()));
+        assertEquals(R3, storage.load(R3.getUuid()));
 
     }
     @Test(expected = WebAppException.class)
@@ -91,12 +92,12 @@ public abstract class AbstractStorageTest {
     @Test
     public void testDelete()  {
 
-        Assert.assertEquals(3, storage.size());
+        assertEquals(3, storage.size());
 
         storage.delete(R2.getUuid());
         storage.delete(R3.getUuid());
         storage.delete(R1.getUuid());
-        Assert.assertEquals(0, storage.size());
+        assertEquals(0, storage.size());
     }
 
     @Test(expected = WebAppException.class)
@@ -112,7 +113,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void testSize() throws Exception {
-        Assert.assertEquals(3, storage.size());
+        assertEquals(3, storage.size());
     }
 
 }

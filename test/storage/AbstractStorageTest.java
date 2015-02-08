@@ -1,10 +1,11 @@
 package storage;
-import model_ideal.ContactType;
-import model_ideal.Resume;
-import model_ideal.SectionType;
+import model_ideal.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDate;
+import java.time.Month;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,6 +33,16 @@ public abstract class AbstractStorageTest {
         R1.addMultiTextSection(SectionType.ACHIEVEMENT, "Достижение1", "Достижение2");
         R1.addMultiTextSection(SectionType.QUALIFICATIONS, "Квалификация1", "Квалификация2");
 
+        R1.addOrganizationSection(SectionType.EXPERIENCE,
+                new Organization(new Link("Organization11", null),
+                        new Organization.OrganizationPeriod(LocalDate.of(2005, Month.JANUARY, 1), Organization.OrganizationPeriod.NOW, "position1", "content1"),
+                        new Organization.OrganizationPeriod(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content2")),
+                new Organization(new Link("Organization12", "http://Organization12.ru")));
+        R1.addOrganizationSection(SectionType.EDUCATION,
+                new Organization(new Link("Institute", null),
+                        new Organization.OrganizationPeriod(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
+                        new Organization.OrganizationPeriod(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
+                new Organization(new Link("Organization12", "http://Organization12.ru")));
     }
 
     @Before

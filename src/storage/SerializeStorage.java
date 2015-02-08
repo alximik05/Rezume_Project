@@ -28,4 +28,9 @@ public class SerializeStorage extends FileStorage {
             throw new WebAppException("Error read resume ", e);
         }
     }
+
+    @Override
+    public boolean isSectonSupported() {
+        return true;
+    }
 }

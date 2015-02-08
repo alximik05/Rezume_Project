@@ -3,6 +3,8 @@ package storage;
 import model_ideal.*;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -69,21 +71,13 @@ public class DataStreamFileStorage extends FileStorage {
 
 
                     case EDUCATION :
-                        writeCollection(outputStream,((OrganizationSection) section).getValues(), new ElementWriter<Organization>() {
-                        @Override
-                        public void write(Organization organization) throws IOException {
-                            writeString(outputStream, organization.getOrganization().toString());
-                            writeCollection(outputStream,organization.getPeriods(),new ElementWriter<Organization.OrganizationPeriod>() {
-                                @Override
-                                public void write(Organization.OrganizationPeriod organizationPeriod) throws IOException {
-                                    writeString(outputStream,organizationPeriod.getStartDate().toString());
-                                    writeString(outputStream, organizationPeriod.getEndDate().toString());
-                                    writeString(outputStream, organizationPeriod.getPositios());
-                                    writeString(outputStream, organizationPeriod.getContent());
-                                }
-                            });
-                        }
-                    } );
+                        writeCollection(outputStream, ((OrganizationSection) section).getValues(),new ElementWriter<Organization>() {
+                            @Override
+                            public void write(Organization organization) throws IOException {
+                                writeOrganization(outputStream, organization);
+                            }
+                        });
+                        break;
                 }
             }
         }
@@ -117,13 +111,13 @@ public class DataStreamFileStorage extends FileStorage {
                     case EXPERIENCE:
 
                     case EDUCATION:
-                        resume.addSection(sectionType,new OrganizationSection(readList(inputStream, new ElementReader() {
+                        resume.addOrganizationSection(sectionType, readList(inputStream,new ElementReader<Organization>() {
                             @Override
-                            public Object read() throws IOException {
-                                return
+                            public Organization read() throws IOException {
+                                return readOrganization(inputStream);
                             }
-                        })));
-
+                        }));
+                        break;
                 }
             }
 
@@ -140,6 +134,59 @@ public class DataStreamFileStorage extends FileStorage {
     private String readString(DataInputStream in) throws IOException {
         String str = in.readUTF();
         return str.equals(DEFAULT) ? null : str;
+    }
+
+    private void writeOrganization(DataOutputStream out, Organization org) throws IOException {
+        writeString(out, org.getLink().getName());
+        writeString(out, org.getLink().getUrl());
+
+        out.writeInt(org.getPeriods().size());
+
+        for (Organization.OrganizationPeriod period : org.getPeriods()) {
+            out.writeInt(period.getStartDate().getYear());
+                out.writeInt(period.getStartDate().getMonthValue());
+                out.writeInt(period.getEndDate().getYear());
+                out.writeInt(period.getEndDate().getMonthValue());
+
+                writeString(out, period.getPositios());
+                writeString(out, period.getContent());
+        }
+//        writeCollection(out, org.getPeriods(), new ElementWriter<Organization.OrganizationPeriod>() {
+//            @Override
+//            public void write(Organization.OrganizationPeriod organizationPeriod) throws IOException {
+//                out.writeInt(organizationPeriod.getStartDate().getYear());
+//                out.writeInt(organizationPeriod.getStartDate().getMonthValue());
+//                out.writeInt(organizationPeriod.getEndDate().getYear());
+//                out.writeInt(organizationPeriod.getEndDate().getMonthValue());
+//
+//                writeString(out, organizationPeriod.getPositios());
+//                writeString(out, organizationPeriod.getContent());
+//            }
+//        });
+    }
+
+    private Organization readOrganization(DataInputStream in) throws IOException {
+        Organization org = new Organization();
+        Link link = new Link(readString(in), readString(in));
+        org.setLink(link);
+
+        int periodSize = in.readInt();
+        for (int i = 0; i < periodSize; i++) {
+            Organization.OrganizationPeriod period = new Organization.OrganizationPeriod();
+            period.setStartDate(LocalDate.of(in.readInt(), Month.of(in.readInt()), 1));
+            period.setEndDate(LocalDate.of(in.readInt(), Month.of(in.readInt()), 1));
+            period.setPositios(readString(in));
+            period.setContent(readString(in));
+
+            org.addPeriod(period);
+        }
+        return org;
+
+    }
+
+    @Override
+    public boolean isSectonSupported() {
+        return true;
     }
 
     private interface ElementWriter<T> {
@@ -159,14 +206,11 @@ public class DataStreamFileStorage extends FileStorage {
 
     }
 
-
-    private <T> List<T> readList(DataInputStream in, ElementReader reader) throws IOException {
-        int size = in.readInt();
+    private <T> List<T> readList(DataInputStream dis, ElementReader<T> reader) throws IOException {
+        int size = dis.readInt();
         List<T> list = new ArrayList<>(size);
-
         for (int i = 0; i < size; i++) {
-            list.add((T) reader.read());
-
+            list.add(reader.read());
         }
         return list;
     }

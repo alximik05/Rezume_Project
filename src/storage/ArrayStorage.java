@@ -74,6 +74,11 @@ public class ArrayStorage extends AbstractStorage<Integer> {
         }
         return idx;
     }
+
+    @Override
+    public boolean isSectonSupported() {
+        return true;
+    }
 }
     /*
     @Override

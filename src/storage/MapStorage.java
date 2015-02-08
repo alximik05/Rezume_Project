@@ -56,4 +56,9 @@ public class MapStorage extends AbstractStorage<String> {
     public int size() {
         return mapStorage.size();
     }
+
+    @Override
+    public boolean isSectonSupported() {
+        return true;
+    }
 }

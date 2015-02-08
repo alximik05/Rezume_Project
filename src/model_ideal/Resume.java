@@ -81,6 +81,8 @@ public class Resume implements Serializable{
     }
 
 
+
+
     public void addContact(ContactType contactType, String value ) {
         contacts.put(contactType, value);
     }
@@ -99,6 +101,14 @@ public class Resume implements Serializable{
 
     public void addMultiTextSection(SectionType type ,String... value) {
         addSection(type, new MultiTextSection(value));
+    }
+
+    public void addOrganizationSection(SectionType type, List<Organization> organizations) {
+        addSection(type,new OrganizationSection(organizations));
+    }
+
+    public void addOrganizationSection(SectionType type, Organization... organizations) {
+        addSection(type,new OrganizationSection(organizations));
     }
 
     public String getUuid() {
@@ -137,5 +147,6 @@ public class Resume implements Serializable{
     public int hashCode() {
         return uuid.hashCode();
     }
+
 
 }

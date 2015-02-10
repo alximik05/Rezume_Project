@@ -40,6 +40,34 @@ public class Organization implements Serializable {
         this.periods = new LinkedList<>(Arrays.asList(periods));
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Organization that = (Organization) o;
+
+        if (link != null ? !link.equals(that.link) : that.link != null) return false;
+        if (periods != null ? !periods.equals(that.periods) : that.periods != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = link != null ? link.hashCode() : 0;
+        result = 31 * result + (periods != null ? periods.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "link=" + link +
+                ", periods=" + periods +
+                '}';
+    }
+
     public Link getLink() {
         return link;
     }
@@ -59,6 +87,40 @@ public class Organization implements Serializable {
     public static class OrganizationPeriod implements Serializable {
 
         static final long serialVersionUID = 1l;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            OrganizationPeriod period = (OrganizationPeriod) o;
+
+            if (content != null ? !content.equals(period.content) : period.content != null) return false;
+            if (endDate != null ? !endDate.equals(period.endDate) : period.endDate != null) return false;
+            if (positios != null ? !positios.equals(period.positios) : period.positios != null) return false;
+            if (startDate != null ? !startDate.equals(period.startDate) : period.startDate != null) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = startDate != null ? startDate.hashCode() : 0;
+            result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+            result = 31 * result + (positios != null ? positios.hashCode() : 0);
+            result = 31 * result + (content != null ? content.hashCode() : 0);
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "OrganizationPeriod{" +
+                    "startDate=" + startDate +
+                    ", endDate=" + endDate +
+                    ", positios='" + positios + '\'' +
+                    ", content='" + content + '\'' +
+                    '}';
+        }
 
         public static final LocalDate NOW = LocalDate.of(3000, 1, 1);
         private LocalDate startDate;

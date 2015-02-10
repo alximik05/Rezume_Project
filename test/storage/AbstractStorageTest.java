@@ -34,15 +34,27 @@ public abstract class AbstractStorageTest {
         R1.addMultiTextSection(SectionType.QUALIFICATIONS, "Квалификация1", "Квалификация2");
 
         R1.addOrganizationSection(SectionType.EXPERIENCE,
-                new Organization(new Link("Organization11", null),
-                        new Organization.OrganizationPeriod(LocalDate.of(2005, Month.JANUARY, 1), Organization.OrganizationPeriod.NOW, "position1", "content1"),
-                        new Organization.OrganizationPeriod(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content2")),
-                new Organization(new Link("Organization12", "http://Organization12.ru")));
+                new Organization(new Link("Intel","intel.com"),
+                new Organization.OrganizationPeriod(2000,Month.MARCH,2002,Month.APRIL,"junior","development legacy code")),
+
+                new Organization(new Link("Amazon", "amazon.com"),
+                new Organization.OrganizationPeriod(2002, Month.MAY, 2005, Month.SEPTEMBER, "middle developer", "did something"))
+                );
         R1.addOrganizationSection(SectionType.EDUCATION,
-                new Organization(new Link("Institute", null),
-                        new Organization.OrganizationPeriod(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
-                        new Organization.OrganizationPeriod(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
-                new Organization(new Link("Organization12", "http://Organization12.ru")));
+                new Organization(new Link("МЭИ", "mpei.ru"),
+                        new Organization.OrganizationPeriod(1995, Month.SEPTEMBER, 2000, Month.MARCH, "student", "studied")));
+
+
+//        R1.addOrganizationSection(SectionType.EXPERIENCE,
+//                new Organization(new Link("Organization11", null),
+//                        new Organization.OrganizationPeriod(LocalDate.of(2005, Month.JANUARY, 1), Organization.OrganizationPeriod.NOW, "position1", "content1"),
+//                        new Organization.OrganizationPeriod(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content2")),
+//                new Organization(new Link("Organization12", "http://Organization12.ru")));
+//        R1.addOrganizationSection(SectionType.EDUCATION,
+//                new Organization(new Link("Institute", null),
+//                        new Organization.OrganizationPeriod(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
+//                        new Organization.OrganizationPeriod(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
+//                new Organization(new Link("Organization12", "http://Organization12.ru")));
     }
 
     @Before

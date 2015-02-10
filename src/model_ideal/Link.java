@@ -2,12 +2,13 @@ package model_ideal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import java.io.Serializable;
 
 /**
  * Created by alximik on 26/12/14.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Link {
+public class Link implements Serializable {
     public static Link EMPTY = new Link();
 
     private final String name;

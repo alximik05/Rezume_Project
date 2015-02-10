@@ -14,7 +14,7 @@ import java.util.List;
  * Created by alximik on 26/12/14.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Organization {
+public class Organization implements Serializable {
 
     private  Link link;
     private  List<OrganizationPeriod> periods;
@@ -29,8 +29,11 @@ public class Organization {
     }
 
     public Organization(Link organization, OrganizationPeriod... organizationsPeriod) {
-        this.link = organization;
+        this(organization, new LinkedList<>(Arrays.asList(organizationsPeriod)));
+
     }
+
+
 
     public Organization(String nameOrganiztion, String siteOrganization, OrganizationPeriod... periods) {
         this.link = new Link(nameOrganiztion, siteOrganization);

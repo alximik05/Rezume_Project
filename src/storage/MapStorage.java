@@ -3,13 +3,15 @@ package storage;
 import model_ideal.Resume;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Created by alximik on 13/01/15.
  */
 public class MapStorage extends AbstractStorage<String> {
 
-    private Map<String, Resume> mapStorage = new HashMap<>();
+    private ConcurrentMap<String, Resume> mapStorage = new ConcurrentHashMap<>();
 
 
     @Override

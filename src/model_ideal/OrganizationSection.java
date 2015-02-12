@@ -1,5 +1,6 @@
 package model_ideal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  */
 public class OrganizationSection extends Section {
 
-    private List<Organization> values;
+    private List<Organization> values = new LinkedList<>();
 
     public OrganizationSection() {
     }
@@ -18,7 +19,7 @@ public class OrganizationSection extends Section {
     }
 
     public OrganizationSection(List<Organization> values) {
-
+        this.values = values;
     }
 
 //    public OrganizationSection(List<Organization> organizations) {

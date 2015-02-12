@@ -23,11 +23,6 @@ public class MultiTextSection extends Section {
     }
 
     @Override
-    public String toString() {
-        return content.toString();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -42,6 +37,11 @@ public class MultiTextSection extends Section {
     @Override
     public int hashCode() {
         return content != null ? content.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return content.toString();
     }
 
     public MultiTextSection() {

@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class MapStorage extends AbstractStorage<String> {
 
-    private ConcurrentMap<String, Resume> mapStorage = new ConcurrentHashMap<>();
+    private Map<String, Resume> mapStorage = new HashMap<>();
 
 
     @Override
@@ -59,8 +59,4 @@ public class MapStorage extends AbstractStorage<String> {
         return mapStorage.size();
     }
 
-    @Override
-    public boolean isSectonSupported() {
-        return true;
-    }
 }

@@ -15,7 +15,7 @@ public class Link implements Serializable {
     private final String url;
 
     public Link() {
-        this("", null);
+        this("", "");
     }
 
     public Link(Link link) {

@@ -29,8 +29,4 @@ public class SerializeStorage extends FileStorage {
         }
     }
 
-    @Override
-    public boolean isSectonSupported() {
-        return true;
-    }
 }

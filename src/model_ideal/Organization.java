@@ -1,12 +1,16 @@
 package model_ideal;
 
+import util.LocalDateAdapter;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,11 +20,11 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
 
-    private  Link link;
-    private  List<OrganizationPeriod> periods;
+    private  Link link = Link.EMPTY;
+    private List<OrganizationPeriod> periods = new LinkedList<>();
 
     public Organization(Link link, List<OrganizationPeriod> periods) {
-        this.link = link;
+        this.link = link ;
         this.periods = periods;
     }
 
@@ -83,10 +87,59 @@ public class Organization implements Serializable {
     public void addPeriod(OrganizationPeriod period) {
         periods.add(period);
     }
-
+@XmlAccessorType(XmlAccessType.FIELD)
     public static class OrganizationPeriod implements Serializable {
 
         static final long serialVersionUID = 1l;
+
+        public static final LocalDate NOW = LocalDate.of(3000, 1, 1);
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private  LocalDate endDate;
+
+
+
+        public void setStartDate(LocalDate startDate) {
+            this.startDate = startDate;
+        }
+
+        public void setEndDate(LocalDate endDate) {
+            this.endDate = endDate;
+        }
+
+        public void setPositios(String positios) {
+            this.positios = positios;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        private  String positios = "";
+        private  String content = "";
+
+        public OrganizationPeriod() {
+
+        }
+
+
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public LocalDate getEndDate() {
+            return endDate;
+        }
+
+        public String getPositios() {
+            return positios;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
 
         @Override
         public boolean equals(Object o) {
@@ -121,57 +174,6 @@ public class Organization implements Serializable {
                     ", content='" + content + '\'' +
                     '}';
         }
-
-        public static final LocalDate NOW = LocalDate.of(3000, 1, 1);
-        private LocalDate startDate;
-        private  LocalDate endDate;
-
-
-
-        public void setStartDate(LocalDate startDate) {
-            this.startDate = startDate;
-        }
-
-        public void setEndDate(LocalDate endDate) {
-            this.endDate = endDate;
-        }
-
-        public void setPositios(String positios) {
-            this.positios = positios;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        private  String positios;
-        private  String content;
-
-        public OrganizationPeriod() {
-
-        }
-
-
-        public LocalDate getStartDate() {
-            return startDate;
-        }
-
-        public LocalDate getEndDate() {
-            return endDate;
-        }
-
-        public String getPositios() {
-            return positios;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-
-
-
-
 
         public OrganizationPeriod(LocalDate startDate, LocalDate endDate, String positios, String content) {
             this.startDate = startDate;

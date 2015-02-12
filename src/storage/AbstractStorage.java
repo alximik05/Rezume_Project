@@ -17,6 +17,10 @@ abstract public class AbstractStorage<C> implements IStorage {
         doClear();
     }
 
+    @Override
+    public boolean isSectonSupported() {
+        return true;
+    }
     protected abstract void doClear();
 
     protected abstract C getContext(String uuid);

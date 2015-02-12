@@ -111,6 +111,7 @@ public class DataStreamFileStorage extends FileStorage {
                     case EXPERIENCE:
 
                     case EDUCATION:
+
                         resume.addOrganizationSection(sectionType, readList(inputStream,new ElementReader<Organization>() {
                             @Override
                             public Organization read() throws IOException {
@@ -182,11 +183,6 @@ public class DataStreamFileStorage extends FileStorage {
         }
         return org;
 
-    }
-
-    @Override
-    public boolean isSectonSupported() {
-        return true;
     }
 
     private interface ElementWriter<T> {
